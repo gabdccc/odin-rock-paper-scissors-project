@@ -21,11 +21,15 @@ function getComputerChoice() {
 // -- make the parameter case insensitive by using the toLowerCase() method
 
 function getHumanChoice() {
-    let choice = prompt("Rock? Paper? Scissors?").toLowerCase();
+    let choice = prompt("Rock? Paper? Scissors?");
 
-    return choice
+    if (choice === "") {
+        choice = "Please put something in the prompt:(";
+    } else if (choice === null) {
+        choice = "Okay, bye!";
+    } 
+    return choice.toLowerCase();   
 }
-
 // create another two variables named as humanScore and computerScore
 // - initialize both variables to 0
 
@@ -38,6 +42,13 @@ let computerScore = 0;
 // - by this string "You lose! Paper beats Rock" or "You win! Scissors beats Paper" or "It's a tie!" and return the string
 // - increment the humanScore or computerScore based on the winner of the round
 
+function playRound(humanChoice, computerChoice) {
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
 // create a function named as playGame
 // playGame will be a 5 round game that will call the playRound function 5 times
 // - move playRound and humanScore and computerScore inside the playGame function
