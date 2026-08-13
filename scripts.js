@@ -42,11 +42,31 @@ let computerScore = 0;
 // - by this string "You lose! Paper beats Rock" or "You win! Scissors beats Paper" or "It's a tie!" and return the string
 // - increment the humanScore or computerScore based on the winner of the round
 
-function playRound(humanChoice, computerChoice) {
-}
-
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
+
+function playRound(humanSelection, computerSelection) {
+    
+    if (humanSelection === "rock" && computerSelection === "rock" || 
+        humanSelection === "paper" && computerSelection === "paper" ||
+        humanSelection === "scissors" && computerSelection === "scissors") {
+        console.log("It's a Tie!")
+    } else if (humanSelection === "rock" && computerSelection === "paper") {
+        console.log("Rock loses to Paper!")
+    } else if (humanSelection === "rock" && computerSelection === "scissors") {
+        console.log("Rock beats Scissors!")
+    } else if (humanSelection === "paper" && computerSelection === "rock") {
+        console.log("Paper beats Rock!")
+    } else if (humanSelection === "paper" && computerSelection === "scissors") {
+        console.log("Paper loses to Scissors!")
+    } else if (humanSelection === "scissors" && computerSelection === "rock") {
+        console.log("Scissors loses to Rock")
+    } else if (humanSelection === "scissors" && computerSelection === "paper") {
+        console.log("Scissors beats paper")
+    } else {
+        console.log(">>Rock, Paper, Scissors<< in the prompt box")
+    }
+}
 
 playRound(humanSelection, computerSelection);
 // create a function named as playGame
