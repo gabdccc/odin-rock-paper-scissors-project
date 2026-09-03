@@ -47,7 +47,7 @@ function getHumanChoice(choice) {
 
 let humanScore = 0;
 let computerScore = 0;
-let rounds = 1;
+let rounds = 0;
 let gameExited = false;
 
 const body = document.querySelector(".ans");
@@ -105,23 +105,28 @@ function gameRounds() {
   }
 }
 
-console.log(`Human Score: ${humanScore}`);
-console.log(`Computer Score: ${computerScore}`);
-
-if (gameExited) {
-  console.log("Game exited before completion.");
-} else if (humanScore > computerScore) {
-  console.log("You win the game!");
-} else if (humanScore < computerScore) {
-  console.log("You lose the game!");
-} else {
-  console.log("It's a tie game!");
-}
-
 const buttons = document.querySelectorAll("button");
+const para = document.createElement("p");
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     playRound(getHumanChoice(button.name), getComputerChoice());
+    rounds++;
+
+    if (humanScore < 5 && computerScore < 5) {
+      para.textContent = "";
+    } else if (humanScore === 5 || computerScore === 5) {
+      if (humanScore > computerScore) {
+        para.textContent = "HUMAN WIN!!";
+      } else {
+        para.textContent = "YOU LOSE! COMPUTER WIN!!";
+      }
+
+      humanScore = 0;
+      computerScore = 0;
+      rounds = 0;
+      body.appendChild(para);
+    }
+    console.log(rounds);
   });
 });
