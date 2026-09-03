@@ -57,6 +57,11 @@ dis.className = "result";
 
 body.appendChild(dis);
 
+const playerScore = document.createElement("p");
+const enemyScore = document.createElement("p");
+body.appendChild(playerScore);
+body.appendChild(enemyScore);
+
 function playRound(humanSelection, computerSelection) {
   if (humanSelection === computerSelection) {
     dis.textContent = "It's a Tie!";
@@ -80,6 +85,8 @@ function playRound(humanSelection, computerSelection) {
     humanScore++;
   }
   // console.log(`Round: ${rounds}`);
+  playerScore.textContent = humanScore;
+  enemyScore.textContent = computerScore;
 }
 
 function gameRounds() {
