@@ -50,29 +50,36 @@ let computerScore = 0;
 let rounds = 1;
 let gameExited = false;
 
+const body = document.querySelector(".ans");
+
+const dis = document.createElement("div");
+dis.className = "result";
+
+body.appendChild(dis);
+
 function playRound(humanSelection, computerSelection) {
   if (humanSelection === computerSelection) {
-    console.log("It's a Tie!");
+    dis.textContent = "It's a Tie!";
   } else if (humanSelection === "rock" && computerSelection === "paper") {
-    console.log("Rock loses to Paper!");
+    dis.textContent = "Rock loses to Paper!";
     computerScore++;
   } else if (humanSelection === "rock" && computerSelection === "scissors") {
-    console.log("Rock beats Scissors!");
+    dis.textContent = "Rock beats Scissors!";
     humanScore++;
   } else if (humanSelection === "paper" && computerSelection === "rock") {
-    console.log("Paper beats Rock!");
+    dis.textContent = "Paper beats Rock!";
     humanScore++;
   } else if (humanSelection === "paper" && computerSelection === "scissors") {
-    console.log("Paper loses to Scissors!");
+    dis.textContent = "Paper loses to Scissors!";
     computerScore++;
   } else if (humanSelection === "scissors" && computerSelection === "rock") {
-    console.log("Scissors loses to Rock!");
+    dis.textContent = "Scissors loses to Rock!";
     computerScore++;
   } else if (humanSelection === "scissors" && computerSelection === "paper") {
-    console.log("Scissors beats paper!");
+    dis.textContent = "Scissors beats paper!";
     humanScore++;
   }
-  console.log(`Round: ${rounds}`);
+  // console.log(`Round: ${rounds}`);
 }
 
 function gameRounds() {
