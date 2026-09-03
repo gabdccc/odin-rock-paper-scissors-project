@@ -85,8 +85,8 @@ function playRound(humanSelection, computerSelection) {
     humanScore++;
   }
   // console.log(`Round: ${rounds}`);
-  playerScore.textContent = humanScore;
-  enemyScore.textContent = computerScore;
+  playerScore.textContent = humanScore + " Human Score";
+  enemyScore.textContent = computerScore + " Computer Score";
 }
 
 function gameRounds() {
