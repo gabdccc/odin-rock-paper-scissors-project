@@ -51,18 +51,29 @@ let rounds = 0;
 let gameExited = false;
 
 const body = document.querySelector(".ans");
-
-const dis = document.createElement("div");
-dis.className = "result";
-
-body.appendChild(dis);
+const dis = document.createElement("span");
 
 const playerScore = document.createElement("p");
 const enemyScore = document.createElement("p");
 body.appendChild(playerScore);
 body.appendChild(enemyScore);
 
+const thirdContain = document.querySelector(".bottom");
+const startTop = document.querySelector(".top");
+const start = document.querySelector(".start");
+const btnShow = document.querySelector(".butones");
+
+thirdContain.appendChild(dis);
+
+start.addEventListener("click", () => {
+  btnShow.classList.add("active");
+  start.classList.add("hide");
+  startTop.style.pointerEvents = "none";
+  thirdContain.classList.remove("active");
+});
+
 function playRound(humanSelection, computerSelection) {
+  thirdContain.classList.add("active");
   if (humanSelection === computerSelection) {
     dis.textContent = "It's a Tie!";
   } else if (humanSelection === "rock" && computerSelection === "paper") {
@@ -106,7 +117,6 @@ function gameRounds() {
 }
 
 const buttons = document.querySelectorAll("button");
-const para = document.createElement("p");
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -114,19 +124,28 @@ buttons.forEach((button) => {
     rounds++;
 
     if (humanScore < 5 && computerScore < 5) {
-      para.textContent = "";
     } else if (humanScore === 5 || computerScore === 5) {
       if (humanScore > computerScore) {
-        para.textContent = "HUMAN WIN!!";
+        dis.textContent = "HUMAN WIN!! COMPUTER LOSE!";
       } else {
-        para.textContent = "YOU LOSE! COMPUTER WIN!!";
+        dis.textContent = "YOU LOSE! COMPUTER WIN!!";
       }
 
       humanScore = 0;
       computerScore = 0;
       rounds = 0;
-      body.appendChild(para);
+      btnShow.classList.remove("active");
+      start.classList.remove("hide");
+      startTop.style.pointerEvents = "auto";
     }
     console.log(rounds);
+  });
+});
+
+const imgLogo = document.querySelectorAll(".img");
+
+imgLogo.forEach((image) => {
+  image.addEventListener("click", () => {
+    image.classList.toggle("spin");
   });
 });
