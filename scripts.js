@@ -21,16 +21,11 @@ function getComputerChoice() {
 // -- make the parameter case insensitive by using the toLowerCase() method
 
 function getHumanChoice(choice) {
-  if (choice === null) {
-    return null;
-  }
-
   choice = choice.toLowerCase().trim();
 
   if (choice === "rock" || choice === "paper" || choice === "scissors") {
     return choice;
   }
-  return getHumanChoice();
 }
 // create another two variables named as humanScore and computerScore
 // - initialize both variables to 0
@@ -48,28 +43,31 @@ function getHumanChoice(choice) {
 let humanScore = 0;
 let computerScore = 0;
 let rounds = 0;
-let gameExited = false;
 
-const body = document.querySelector(".ans");
 const dis = document.createElement("span");
 
-const playerScore = document.createElement("p");
-const enemyScore = document.createElement("p");
-body.appendChild(playerScore);
-body.appendChild(enemyScore);
-
+const playerScore = document.querySelector(".playerScore");
+const enemyScore = document.querySelector(".enemyScore");
+const scoreboard = document.querySelector(".scoreboard");
 const thirdContain = document.querySelector(".bottom");
 const startTop = document.querySelector(".top");
 const start = document.querySelector(".start");
 const btnShow = document.querySelector(".butones");
+const buttons = document.querySelectorAll("button");
 
 thirdContain.appendChild(dis);
 
 start.addEventListener("click", () => {
   btnShow.classList.add("active");
   start.classList.add("hide");
+  scoreboard.classList.add("active");
+
   startTop.style.pointerEvents = "none";
+
   thirdContain.classList.remove("active");
+
+  playerScore.textContent = "Your score here!";
+  enemyScore.textContent = "Computer score here!";
 });
 
 function playRound(humanSelection, computerSelection) {
@@ -77,66 +75,56 @@ function playRound(humanSelection, computerSelection) {
   if (humanSelection === computerSelection) {
     dis.textContent = "It's a Tie!";
   } else if (humanSelection === "rock" && computerSelection === "paper") {
-    dis.textContent = "Rock loses to Paper!";
+    dis.textContent = "Your rock loses to computer's paper!";
     computerScore++;
   } else if (humanSelection === "rock" && computerSelection === "scissors") {
-    dis.textContent = "Rock beats Scissors!";
+    dis.textContent = "Your rock beats computer's scissors!";
     humanScore++;
   } else if (humanSelection === "paper" && computerSelection === "rock") {
-    dis.textContent = "Paper beats Rock!";
+    dis.textContent = "Your paper beats computer's rock!";
     humanScore++;
   } else if (humanSelection === "paper" && computerSelection === "scissors") {
-    dis.textContent = "Paper loses to Scissors!";
+    dis.textContent = "Your paper loses to computer's scissors!";
     computerScore++;
   } else if (humanSelection === "scissors" && computerSelection === "rock") {
-    dis.textContent = "Scissors loses to Rock!";
+    dis.textContent = "Your scissors loses to computer's rock!";
     computerScore++;
   } else if (humanSelection === "scissors" && computerSelection === "paper") {
-    dis.textContent = "Scissors beats paper!";
+    dis.textContent = "Your scissors beats computer's paper!";
     humanScore++;
   }
   // console.log(`Round: ${rounds}`);
-  playerScore.textContent = humanScore + " Human Score";
-  enemyScore.textContent = computerScore + " Computer Score";
+  playerScore.textContent = humanScore;
+  enemyScore.textContent = computerScore;
 }
-
-function gameRounds() {
-  if (rounds <= 5) {
-    const humanChoice = getHumanChoice();
-
-    if (humanChoice === null) {
-      gameExited = true;
-      return;
-    }
-    const computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-
-    rounds++;
-    gameRounds();
-  }
-}
-
-const buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     playRound(getHumanChoice(button.name), getComputerChoice());
     rounds++;
 
-    if (humanScore < 5 && computerScore < 5) {
+    if (humanScore > 5 && computerScore > 5) {
     } else if (humanScore === 5 || computerScore === 5) {
       if (humanScore > computerScore) {
-        dis.textContent = "HUMAN WIN!! COMPUTER LOSE!";
+        dis.textContent = "YOU WIN!! COMPUTER LOSE!";
+        playerScore.textContent = `Your score is ${humanScore}`;
+        enemyScore.textContent = `Computer score is ${computerScore}`;
       } else {
         dis.textContent = "YOU LOSE! COMPUTER WIN!!";
+        playerScore.textContent = `Your score is ${humanScore}`;
+        enemyScore.textContent = `Computer score is ${computerScore}`;
       }
 
       humanScore = 0;
       computerScore = 0;
       rounds = 0;
+
       btnShow.classList.remove("active");
       start.classList.remove("hide");
+
       startTop.style.pointerEvents = "auto";
+
+      start.textContent = "Restart";
     }
     console.log(rounds);
   });
